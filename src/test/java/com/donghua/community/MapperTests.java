@@ -1,9 +1,12 @@
 package com.donghua.community;
 
 import com.donghua.community.dao.DiscussPostMapper;
+import com.donghua.community.dao.LoginTicketMapper;
 import com.donghua.community.dao.UserMapper;
 import com.donghua.community.entity.DiscussPost;
+import com.donghua.community.entity.LoginTicket;
 import com.donghua.community.entity.User;
+import com.donghua.community.util.CommunityUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ public class MapperTests {
     private UserMapper userMapper;
     @Autowired
     private DiscussPostMapper discussPostMapper;
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Test
     public void testSelectUser(){
@@ -72,6 +77,29 @@ public class MapperTests {
         }
 
         int i = discussPostMapper.selectDisscussPossRows(0);
+        System.out.println(i);
+    }
+
+    @Test
+    public void testInserLoginTicket(){
+        LoginTicket ticket = new LoginTicket();
+        ticket.setStatus(1);
+        ticket.setTicket(CommunityUtil.generateUUID());
+        ticket.setUserId(100);
+        ticket.setExpired(new Date(System.currentTimeMillis() + 1000 * 60 * 10));
+
+        loginTicketMapper.insertLoginTicket(ticket);
+    }
+
+    @Test
+    public void testSelectLoginTicket(){
+        LoginTicket ticket = loginTicketMapper.selectByTicket("9ef3d19c1612432ababfc6de2df238d5");
+        System.out.println(ticket);
+    }
+
+    @Test
+    public void testUpdateTicketStatus(){
+        int i = loginTicketMapper.updateStatus("9ef3d19c1612432ababfc6de2df238d5", 0);
         System.out.println(i);
     }
 }
