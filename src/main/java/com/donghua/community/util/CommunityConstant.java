@@ -15,4 +15,31 @@ public interface CommunityConstant {
      * 激活失败
      */
     int ACTIVATION_FAILURE = 2;
+
+    /**
+     * 默认状态登录凭证超时时间
+     */
+    long DEFAULT_EXPIRED_TIME = 3600 * 12;
+
+    /**
+     * 记住我状态下登录凭证超时时间
+     */
+    long REMEMBERME_EXPIRED_TIME = 3600 * 24 * 100;
+
+    /**
+     * 实体类型：帖子
+     */
+    int ENTITY_TYPE_POST = 1;
+
+    /**
+     * 实体类型：帖子
+     */
+    int ENTITY_TYPE_COMMENT = 2;
+
+    /**
+     * 实体类型：用户
+     */
+    int ENTITY_TYPE_USER = 3;
+
+
 }
