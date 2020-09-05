@@ -2,6 +2,7 @@ package com.donghua.community;
 
 import com.donghua.community.dao.*;
 import com.donghua.community.entity.*;
+import com.donghua.community.util.CommunityConstant;
 import com.donghua.community.util.CommunityUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +18,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
-public class MapperTests {
+public class MapperTests implements CommunityConstant {
 
     @Autowired
     private UserMapper userMapper;
@@ -71,7 +72,7 @@ public class MapperTests {
 
     @Test
     public void testSelectDisscussPost() {
-        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(0, 0, 10);
+        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(0, 0, 10, 0);
         for (DiscussPost post :
                 list) {
             System.out.println(post);
@@ -106,7 +107,7 @@ public class MapperTests {
 
     @Test
     public void testInsertDiscusspost() {
-        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(0, 0, 10);
+        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(0, 0, 10, 0);
         DiscussPost discussPost = list.get(2);
         System.out.println(discussPost);
         discussPost.setUserId(9999);
@@ -177,5 +178,13 @@ public class MapperTests {
         for(Message message:messages){
             System.out.println(message);
         }
+    }
+
+    @Test
+    public void testUnreadNoticeCount(){
+        System.out.println(messageMapper.selectNoticeUnreadCount(111,TOPIC_COMMENT));
+        System.out.println(messageMapper.selectNoticeUnreadCount(111,TOPIC_FOLLOW));
+        System.out.println(messageMapper.selectNoticeUnreadCount(111,TOPIC_LIKE));
+        System.out.println(messageMapper.selectNoticeUnreadCount(111,null));
     }
 }
